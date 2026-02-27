@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart | White Sage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+    <a href="index.html">
+      <img src="logo.png" alt="White Sage Logo">
+    </a>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="booking.html">Book</a>
+    <a href="about.html">About</a>
+    <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+  </nav>
+</header>
+
+<a href="#" class="back-button" id="backButton" aria-label="Go Back">
+  <span class="back-arrow">←</span>
+  <span class="back-text">Back</span>
+</a>
+
+<section class="cart-hero">
+  <h1>Your Cart</h1>
+  <p>Review your selected wellness products below.</p>
+</section>
+
+<section class="cart-section">
+  <div class="cart-container">
+
+    <div class="cart-items" id="cart-items">
+      <!-- Items dynamically inserted here -->
+    </div>
+
+    <div class="cart-summary">
+      <h3>Order Summary</h3>
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="cart-total">R0</span>
+      </div>
+
+      <button class="btn checkout-btn">Proceed to Checkout</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 White Sage
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

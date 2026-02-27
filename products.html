@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shop | White Sage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+
+  <!-- BACK BUTTON -->
+  <a href="#" class="back-button" id="backButton" aria-label="Go Back">
+    <span class="back-arrow">←</span>
+    <span class="back-text">Back</span>
+  </a>
+
+    <div class="logo">
+    <a href="index.html">
+      <img src="logo.png" alt="White Sage Logo">
+    </a>
+  </div>
+
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="booking.html">Book</a>
+    <a href="about.html">About</a>
+    <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+  </nav>
+
+</header>
+
+<!-- SHOP HERO -->
+<section class="shop-hero">
+  <div>
+    <h1>Our Natural Collection</h1>
+    <p>Handcrafted wellness products made with intention.</p>
+  </div>
+</section>
+
+<!-- SHOP SECTION -->
+<section class="shop-section">
+  <div class="shop-container">
+
+    <div class="shop-grid">
+
+      <!-- SOAP -->
+      <div class="product-card">
+        <img src="soap.jpg" alt="Herbal Soap">
+        <div class="product-overlay">
+          <h3>Herbal Soap</h3>
+          <p>R80</p>
+
+          <div class="product-actions">
+            <a href="soap.html" class="btn">View</a>
+            <button class="btn add-to-cart-shop"
+              data-name="Herbal Soap"
+              data-price="80"
+              data-image="soap.jpg">
+              Add
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CANDLES -->
+      <div class="product-card">
+        <img src="candles.jpg" alt="Healing Candle">
+        <div class="product-overlay">
+          <h3>Healing Candle</h3>
+          <p>R120</p>
+
+          <div class="product-actions">
+            <a href="candles.html" class="btn">View</a>
+            <button class="btn add-to-cart-shop"
+              data-name="Healing Candle"
+              data-price="120"
+              data-image="candles.jpg">
+              Add
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CREAM -->
+      <div class="product-card">
+        <img src="cream.jpg" alt="Cannabis Cream">
+        <div class="product-overlay">
+          <h3>Cannabis Cream</h3>
+          <p>R250</p>
+
+          <div class="product-actions">
+            <a href="cream.html" class="btn">View</a>
+            <button class="btn add-to-cart-shop"
+              data-name="Cannabis Cream"
+              data-price="250"
+              data-image="cream.jpg">
+              Add
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- OIL -->
+      <div class="product-card">
+        <img src="oil.jpg" alt="Cannabis Oil">
+        <div class="product-overlay">
+          <h3>Cannabis Oil</h3>
+          <p>R300</p>
+
+          <div class="product-actions">
+            <a href="oil.html" class="btn">View</a>
+            <button class="btn add-to-cart-shop"
+              data-name="Cannabis Oil"
+              data-price="300"
+              data-image="oil.jpg">
+              Add
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SALTS -->
+      <div class="product-card">
+        <img src="salts.jpg" alt="Bath Salts">
+        <div class="product-overlay">
+          <h3>Bath Salts</h3>
+          <p>R150</p>
+
+          <div class="product-actions">
+            <a href="salts.html" class="btn">View</a>
+            <button class="btn add-to-cart-shop"
+              data-name="Bath Salts"
+              data-price="150"
+              data-image="salts.jpg">
+              Add
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FLOATING CART BUTTON -->
+<a href="cart.html" class="floating-cart">
+  🛒
+  <span class="floating-count" id="floating-cart-count">0</span>
+</a>
+
+<footer>
+  © 2026 White Sage
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
