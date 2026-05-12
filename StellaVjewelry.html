@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stella V Jewelry | White Sage</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --base: #F4F1EA; --depth: #2F3E38; --action: #4F6F60; --gold: #C2A65A; }
+    
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      background: var(--base); 
+      color: var(--depth); 
+      opacity: 0; 
+      transition: opacity 1s; 
+    }
+    body.loaded { opacity: 1; }
+
+    /* ================= NAVIGATION ================= */
+    header { 
+      display: flex; justify-content: space-between; align-items: center; 
+      padding: 15px 60px; background: var(--depth); 
+      position: fixed; width: 100%; top: 0; z-index: 2000; 
+    }
+    .logo img { height: 50px; }
+    nav a { color: white; text-decoration: none; margin-left: 25px; font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
+    nav a:hover, nav a.active-link { color: var(--gold); }
+
+    /* ================= HERO ================= */
+    .page-hero { 
+      height: 60vh; 
+      background: linear-gradient(rgba(47, 62, 56, 0.6), rgba(47, 62, 56, 0.6)), 
+                  url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=2000&auto=format&fit=crop') center/cover; 
+      display: flex; flex-direction: column; align-items: center; justify-content: center; 
+      color: white; text-align: center; 
+    }
+    .page-hero h1 { font-size: 3.5rem; letter-spacing: 8px; font-weight: 300; text-transform: uppercase; }
+
+    /* ================= COLLECTION GRID ================= */
+    .collection-container { 
+      max-width: 1200px; margin: -60px auto 80px; padding: 0 20px; 
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; 
+    }
+    .category-card { 
+      position: relative; height: 400px; border-radius: 12px; 
+      overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.1); cursor: pointer; 
+    }
+    .category-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+    .category-card:hover img { transform: scale(1.05); }
+    .category-info { 
+      position: absolute; bottom: 0; width: 100%; padding: 30px; 
+      background: linear-gradient(transparent, rgba(47, 62, 56, 0.9)); color: white; 
+    }
+    .btn-gold { 
+      display: inline-block; padding: 10px 20px; border: 1px solid var(--gold); 
+      color: var(--gold); text-decoration: none; font-size: 0.75rem; 
+      letter-spacing: 2px; text-transform: uppercase; margin-top: 15px;
+    }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* ================= MOBILE RESPONSIVE ================= */
+    @media (max-width: 768px) {
+      header { padding: 15px 20px; flex-direction: column; text-align: center; height: auto !important; }
+      nav { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+      nav a { margin: 0 !important; font-size: 0.8rem; }
+      .page-hero { height: 40vh; }
+      .page-hero h1 { font-size: 2.2rem; letter-spacing: 4px; }
+      .collection-container { grid-template-columns: 1fr; margin-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><a href="index.html"><img src="logo.png" alt="Logo"></a></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="booking.html">Book</a>
+    <a href="StellaVjewelry.html" class="active-link">Stella V</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <h1 class="reveal">STELLA V</h1>
+  <p class="reveal">Jewelry & Accessories</p>
+</section>
+
+<div class="collection-container">
+  <div class="category-card reveal" onclick="handleCategoryClick('Necklaces')">
+    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1000&auto=format&fit=crop" alt="Necklaces">
+    <div class="category-info">
+      <h2>Necklaces</h2>
+      <a href="StellaVproducts.html#necklaces" class="btn-gold">View Collection</a>
+    </div>
+  </div>
+
+  <div class="category-card reveal" onclick="handleCategoryClick('Bracelets')">
+    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000&auto=format&fit=crop" alt="Bracelets">
+    <div class="category-info">
+      <h2>Bracelets</h2>
+      <a href="StellaVproducts.html#bracelets" class="btn-gold">View Collection</a>
+    </div>
+  </div>
+
+  <div class="category-card reveal" onclick="handleCategoryClick('Earrings')">
+    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1000&auto=format&fit=crop" alt="Earrings">
+    <div class="category-info">
+      <h2>Earrings</h2>
+      <a href="StellaVproducts.html#earrings" class="btn-gold">View Collection</a>
+    </div>
+  </div>
+
+  <div class="category-card reveal" onclick="handleCategoryClick('Keychains')">
+    <img src="https://images.unsplash.com/photo-1629198682669-70217989938f?q=80&w=1000&auto=format&fit=crop" alt="Keychains">
+    <div class="category-info">
+      <h2>Keychains</h2>
+      <a href="StellaVproducts.html#keychains" class="btn-gold">View Collection</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // 1. Firebase Setup
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQ4Jyw8phk9wFBx1j504GwYHkwP1D_tpI",
+    authDomain: "whitesage.firebaseapp.com",
+    projectId: "whitesage",
+    storageBucket: "whitesage.firebasestorage.app",
+    messagingSenderId: "1021734987429",
+    appId: "1:1021734987429:web:481545a5479d5fffb88f4c"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // 2. CONSOLIDATED TRACKING ENGINE (Defined once)
+  const trackEvent = (action, label) => {
+    if (!sessionStorage.getItem('view_id')) {
+        sessionStorage.setItem('view_id', Math.random().toString(36).substring(7));
+    }
+    db.collection("analytics").add({
+      action: action,
+      label: label,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      sessionId: sessionStorage.getItem('view_id')
+    });
+  };
+
+  // 3. Page Reveal Logic
+  function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      if (elementTop < windowHeight - 50) {
+        reveals[i].classList.add("active");
+      }
+    }
+  }
+
+  window.addEventListener('load', () => { 
+    document.body.classList.add('loaded'); 
+    reveal(); 
+    trackEvent('page_view', 'Stella V Landing');
+  });
+
+  window.addEventListener("scroll", reveal);
+
+  // 4. Interaction Tracking
+  function handleCategoryClick(category) {
+    trackEvent('category_interest', category);
+  }
+
+  document.querySelectorAll('.btn-gold').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const categoryName = e.target.closest('.category-info').querySelector('h2').innerText;
+      trackEvent('button_click', 'View ' + categoryName);
+    });
+  });
+</script>
+</body>
+</html>

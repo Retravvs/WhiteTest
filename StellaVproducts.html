@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Stella V Collection | White Sage</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --base: #F4F1EA; --depth: #2F3E38; --action: #4F6F60; --gold: #C2A65A; }
+    body { font-family: 'Segoe UI', sans-serif; background: var(--base); color: var(--depth); opacity: 0; transition: 0.5s; }
+    body.loaded { opacity: 1; }
+    
+    header { display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; background: #2f3e38; position: fixed; width: 100%; top: 0; z-index: 2000; }
+    .logo img { height: 50px; }
+    nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: 0.3s; }
+    nav a:hover { color: var(--gold); }
+    
+    .page-hero { padding: 140px 20px 60px; background: var(--depth); color: white; text-align: center; }
+    .page-hero h1 { font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
+
+    .shop-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+    .cat-header { border-bottom: 2px solid var(--gold); margin: 40px 0 20px; padding-bottom: 10px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; }
+    
+    .jewelry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+    .item-card { background: white; border-radius: 8px; overflow: hidden; text-align: center; padding-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; }
+    .item-card:hover { transform: translateY(-5px); }
+    .img-box { height: 300px; background: #eee; overflow: hidden; }
+    .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+    
+    .item-card h3 { font-size: 1rem; margin: 15px 0 5px; font-weight: 600; }
+    .price { color: var(--action); font-weight: bold; display: block; margin-bottom: 15px; }
+    .btn-add { padding: 10px 25px; background: var(--depth); color: white; border: none; cursor: pointer; border-radius: 4px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; }
+    .btn-add:hover { background: var(--gold); }
+
+    footer { background: var(--depth); color: #E8E5DC; padding: 80px 60px 40px; border-top: 5px solid var(--gold); margin-top: 80px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; max-width: 1200px; margin: 0 auto; }
+    .footer-col h3 { color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 25px; font-weight: 400; }
+    .footer-form input, .footer-form textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #4F6F60; background: #3b4d45; color: white; border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      header { padding: 15px 20px !important; flex-direction: column; height: auto !important; }
+      nav { margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+      nav a { margin: 0 !important; font-size: 0.8rem; }
+      .jewelry-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><a href="index.html"><img src="logo.png" alt="Logo"></a></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="booking.html">Book</a>
+    <a href="StellaVjewelry.html">Stella V</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <h1>The Stella V Collection</h1>
+</section>
+
+<div class="shop-container">
+  <h2 class="cat-header" id="necklaces">Necklaces</h2>
+  <div class="jewelry-grid">
+    <div class="item-card">
+      <div class="img-box"><img src="https://images.unsplash.com/photo-1611085583191-a3b1a30a5af4?q=80&w=600&auto=format&fit=crop" alt="Malachite Necklace"></div>
+      <h3>Malachite Necklace</h3>
+      <span class="price">R204.00</span>
+      <button class="btn-add" onclick="addToCart('Malachite Necklace', 204, 'https://images.unsplash.com/photo-1611085583191-a3b1a30a5af4?q=80&w=600&auto=format&fit=crop')">Add to Cart</button>
+    </div>
+    <div class="item-card">
+      <div class="img-box"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600&auto=format&fit=crop" alt="Resin Necklace"></div>
+      <h3>Resin Mix Necklace</h3>
+      <span class="price">R180.00</span>
+      <button class="btn-add" onclick="addToCart('Resin Mix Necklace', 180, 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600&auto=format&fit=crop')">Add to Cart</button>
+    </div>
+  </div>
+
+  <h2 class="cat-header" id="bracelets">Bracelets</h2>
+  <div class="jewelry-grid">
+    <div class="item-card">
+      <div class="img-box"><img src="https://images.unsplash.com/photo-1535556116002-6281ff3e9f36?q=80&w=600&auto=format&fit=crop" alt="Evil Eye Bracelet"></div>
+      <h3>Evil Eye Bracelet</h3>
+      <span class="price">R168.00</span>
+      <button class="btn-add" onclick="addToCart('Evil Eye Bracelet', 168, 'https://images.unsplash.com/photo-1535556116002-6281ff3e9f36?q=80&w=600&auto=format&fit=crop')">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>Contact Stella V</h3>
+      <form class="footer-form" id="footerSupportForm">
+        <input type="text" id="supp_name" placeholder="Name" required>
+        <input type="email" id="supp_email" placeholder="Email" required>
+        <textarea id="supp_message" placeholder="Message regarding jewelry..." rows="3" required></textarea>
+        <button type="submit" id="supp_btn" class="btn-add" style="width: 100%;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQ4Jyw8phk9wFBx1j504GwYHkwP1D_tpI",
+    authDomain: "whitesage.firebaseapp.com",
+    projectId: "whitesage",
+    storageBucket: "whitesage.firebasestorage.app",
+    messagingSenderId: "1021734987429",
+    appId: "1:1021734987429:web:481545a5479d5fffb88f4c"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // CONSOLIDATED MASTER TRACKING ENGINE
+  const trackEvent = (action, label) => {
+    if (!sessionStorage.getItem('view_id')) {
+        sessionStorage.setItem('view_id', Math.random().toString(36).substring(7));
+    }
+    db.collection("analytics").add({
+      action: action,
+      label: label,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      sessionId: sessionStorage.getItem('view_id')
+    });
+  };
+
+  // INITIALIZATION
+  window.onload = () => { 
+    document.body.classList.add('loaded'); 
+    trackEvent('page_view', 'Stella V Collection');
+  };
+
+  // BASKET LOGIC
+  function addToCart(n, p, i) {
+    trackEvent('cart_intent', n);
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({name: n, price: p, image: i, quantity: 1});
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(n + " added to basket!");
+  }
+
+  // SUPPORT FORM LOGIC
+  document.getElementById('footerSupportForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('supp_btn');
+    btn.innerText = "Sending...";
+    
+    db.collection("support").add({
+      name: document.getElementById('supp_name').value,
+      email: document.getElementById('supp_email').value,
+      message: "[Jewelry Inquiry] " + document.getElementById('supp_message').value,
+      status: 'new',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      btn.innerText = "Sent!";
+      document.getElementById('footerSupportForm').reset();
+      setTimeout(() => { btn.innerText = "Send Message"; }, 3000);
+    });
+  });
+
+  // AUTO-TRACK BUTTON CLICKS (Global)
+  document.querySelectorAll('.btn-add, nav a').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if(!e.target.hasAttribute('onclick')) { // Prevent double-tracking with addToCart
+         trackEvent('click', e.target.innerText || 'Nav Link');
+      }
+    });
+  });
+</script>
+</body>
+</html>
