@@ -1,165 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop | White Sage</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="product.css">
+  <link rel="stylesheet" href="styles.css"> 
+  <style>
+    /* Ensure reveal animations and layout match index */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    body { opacity: 0; transition: opacity 1.2s; }
+    body.loaded { opacity: 1; }
+
+    @media (max-width: 768px) {
+      header { padding: 15px 20px !important; flex-direction: column; height: auto !important; }
+      nav { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+      nav a { margin: 0 !important; font-size: 0.8rem; }
+      h1 { font-size: 2rem !important; letter-spacing: 4px !important; }
+      .shop-grid, .stats-grid, .booking-wrapper, .product-container { grid-template-columns: 1fr !important; }
+      .footer-grid { grid-template-columns: 1fr !important; gap: 30px; }
+    }
+  </style>
 </head>
 <body>
 
 <header>
-
-  <!-- BACK BUTTON -->
-  <a href="#" class="back-button" id="backButton" aria-label="Go Back">
-    <span class="back-arrow">←</span>
-    <span class="back-text">Back</span>
-  </a>
-
-    <div class="logo">
-    <a href="index.html">
-      <img src="logo.png" alt="White Sage Logo">
-    </a>
+  <div class="logo">
+    <a href="index.html"><img src="logo.png" alt="White Sage Logo"></a>
   </div>
-
-
   <nav>
     <a href="index.html">Home</a>
     <a href="products.html">Shop</a>
     <a href="booking.html">Book</a>
-    <a href="about.html">About</a>
+    <a href="StellaVjewelry.html">Stella V</a>
     <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
   </nav>
-
 </header>
 
-<!-- SHOP HERO -->
-<section class="shop-hero">
-  <div>
-    <h1>Our Natural Collection</h1>
-    <p>Handcrafted wellness products made with intention.</p>
-  </div>
-</section>
+<div class="filter-container reveal">
+  <button class="filter-btn active" data-filter="all">All Collection</button>
+  <button class="filter-btn" data-filter="spices">Spices</button>
+  <button class="filter-btn" data-filter="tinctures">Tinctures</button>
+  <button class="filter-btn" data-filter="bodycare">Body Care</button>
+  <button class="filter-btn" data-filter="aromas">Aromas</button>
+  <button class="filter-btn" data-filter="cbd">CBD</button>
+</div>
 
-<!-- SHOP SECTION -->
 <section class="shop-section">
-  <div class="shop-container">
-
-    <div class="shop-grid">
-
-      <!-- SOAP -->
-      <div class="product-card">
-        <img src="soap.jpg" alt="Herbal Soap">
-        <div class="product-overlay">
-          <h3>Herbal Soap</h3>
-          <p>R80</p>
-
-          <div class="product-actions">
-            <a href="soap.html" class="btn">View</a>
-            <button class="btn add-to-cart-shop"
-              data-name="Herbal Soap"
-              data-price="80"
-              data-image="soap.jpg">
-              Add
-            </button>
-          </div>
-
-        </div>
+  <div class="shop-grid">
+    <div class="category-title" data-category="spices"><h2>Artisan Spices</h2></div>
+    <div class="product-card reveal" data-category="spices">
+      <div class="product-image-wrapper"><img src="https://images.pexels.com/photos/1340116/pexels-photo-1340116.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Turmeric"></div>
+      <div class="product-overlay">
+        <h3>Organic Golden Turmeric</h3>
+        <span class="price">R85.00</span>
+        <a href="product-detail.html?item=turmeric" class="btn-minimal">View Details</a>
       </div>
-
-      <!-- CANDLES -->
-      <div class="product-card">
-        <img src="candles.jpg" alt="Healing Candle">
-        <div class="product-overlay">
-          <h3>Healing Candle</h3>
-          <p>R120</p>
-
-          <div class="product-actions">
-            <a href="candles.html" class="btn">View</a>
-            <button class="btn add-to-cart-shop"
-              data-name="Healing Candle"
-              data-price="120"
-              data-image="candles.jpg">
-              Add
-            </button>
-          </div>
-
-        </div>
+    </div>
+    
+    <div class="product-card reveal" data-category="spices">
+      <div class="product-image-wrapper"><img src="https://images.pexels.com/photos/6211053/pexels-photo-6211053.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Chai"></div>
+      <div class="product-overlay">
+        <h3>Artisan Chai Masala</h3>
+        <span class="price">R95.00</span>
+        <a href="product-detail.html?item=chai" class="btn-minimal">View Details</a>
       </div>
-
-      <!-- CREAM -->
-      <div class="product-card">
-        <img src="cream.jpg" alt="Cannabis Cream">
-        <div class="product-overlay">
-          <h3>Cannabis Cream</h3>
-          <p>R250</p>
-
-          <div class="product-actions">
-            <a href="cream.html" class="btn">View</a>
-            <button class="btn add-to-cart-shop"
-              data-name="Cannabis Cream"
-              data-price="250"
-              data-image="cream.jpg">
-              Add
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- OIL -->
-      <div class="product-card">
-        <img src="oil.jpg" alt="Cannabis Oil">
-        <div class="product-overlay">
-          <h3>Cannabis Oil</h3>
-          <p>R300</p>
-
-          <div class="product-actions">
-            <a href="oil.html" class="btn">View</a>
-            <button class="btn add-to-cart-shop"
-              data-name="Cannabis Oil"
-              data-price="300"
-              data-image="oil.jpg">
-              Add
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- SALTS -->
-      <div class="product-card">
-        <img src="salts.jpg" alt="Bath Salts">
-        <div class="product-overlay">
-          <h3>Bath Salts</h3>
-          <p>R150</p>
-
-          <div class="product-actions">
-            <a href="salts.html" class="btn">View</a>
-            <button class="btn add-to-cart-shop"
-              data-name="Bath Salts"
-              data-price="150"
-              data-image="salts.jpg">
-              Add
-            </button>
-          </div>
-
-        </div>
-      </div>
-
     </div>
 
+    <div class="category-title" data-category="tinctures"><h2>Ayurvedic Tinctures</h2></div>
+    <div class="product-card reveal" data-category="tinctures">
+      <div class="product-image-wrapper"><img src="https://images.pexels.com/photos/3652103/pexels-photo-3652103.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Ashwa"></div>
+      <div class="product-overlay">
+        <h3>Ashwagandha Extract</h3>
+        <span class="price">R220.00</span>
+        <a href="product-detail.html?item=ashwagandha" class="btn-minimal">View Details</a>
+      </div>
+    </div>
+
+    <div class="category-title" data-category="cbd"><h2>CBD Collection</h2></div>
+    <div class="product-card reveal" data-category="cbd">
+      <div class="product-image-wrapper"><img src="https://images.pexels.com/photos/2513993/pexels-photo-2513993.jpeg?auto=compress&cs=tinysrgb&w=800" alt="CBD Oil"></div>
+      <div class="product-overlay">
+        <h3>Sleep Support CBD Oil</h3>
+        <span class="price">R450.00</span>
+        <a href="product-detail.html?item=cbd" class="btn-minimal">View Details</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FLOATING CART BUTTON -->
 <a href="cart.html" class="floating-cart">
-  🛒
-  <span class="floating-count" id="floating-cart-count">0</span>
+  🛒 <span class="floating-count" id="floating-cart-count">0</span>
 </a>
 
-<footer>
-  © 2026 White Sage
-</footer>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-<script src="script.js"></script>
+<script>
+  // 1. Firebase Setup
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQ4Jyw8phk9wFBx1j504GwYHkwP1D_tpI",
+    authDomain: "whitesage.firebaseapp.com",
+    projectId: "whitesage",
+    storageBucket: "whitesage.firebasestorage.app",
+    messagingSenderId: "1021734987429",
+    appId: "1:1021734987429:web:481545a5479d5fffb88f4c"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // 2. CONSOLIDATED Tracking Function
+  const trackEvent = (action, label) => {
+    if (!sessionStorage.getItem('view_id')) {
+        sessionStorage.setItem('view_id', Math.random().toString(36).substring(7));
+    }
+    db.collection("analytics").add({
+      action: action,
+      label: label,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      sessionId: sessionStorage.getItem('view_id')
+    });
+  };
+
+  // 3. MECHANICAL FILTER LOGIC (This makes them work!)
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const shopItems = document.querySelectorAll('.product-card, .category-title');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // UI Update: Toggle Active Class
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      // Logic: Show/Hide items based on category
+      shopItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        
+        if (filterValue === 'all' || itemCategory === filterValue) {
+          item.style.display = 'block';
+          // Small delay to trigger the fade-in animation again
+          setTimeout(() => item.classList.add('active'), 50);
+        } else {
+          item.style.display = 'none';
+          item.classList.remove('active');
+        }
+      });
+
+      // Track the filter use for your Dashboard
+      trackEvent('filter_used', btn.innerText);
+    });
+  });
+
+  // 4. Reveal Logic (Ignores hidden items)
+  function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+    reveals.forEach(el => {
+      // Only animate if the item is currently visible
+      if (el.style.display !== 'none') {
+        var windowHeight = window.innerHeight;
+        var elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) el.classList.add("active");
+      }
+    });
+  }
+
+  // 5. Initialization
+  window.addEventListener('load', () => { 
+    document.body.classList.add('loaded'); 
+    reveal(); 
+    trackEvent('page_view', 'Shop Page');
+  });
+  window.addEventListener("scroll", reveal);
+
+  // 6. Click Tracking
+  document.querySelectorAll('.btn-minimal').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const parentCard = e.target.closest('.product-overlay');
+      if (parentCard) {
+        const productName = parentCard.querySelector('h3').innerText;
+        trackEvent('interest_click', productName);
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
