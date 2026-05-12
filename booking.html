@@ -1,125 +1,322 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Book | White Sage</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Session | White Sage</title>
+  <style>
+    :root {
+      --primary: #2F3E38;
+      --accent: #4F6F60;
+      --bg: #F4F1EA;
+      --white: #ffffff;
+      /* Branded Variables */
+      --base: #F4F1EA;
+      --depth: #2F3E38;
+      --action: #4F6F60;
+      --gold: #C2A65A;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      margin: 0;
+      color: var(--primary);
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      padding-top: 80px; 
+    }
+    body.loaded { opacity: 1; }
+
+    /* ================= HEADER (MATCHES INDEX) ================= */
+    header {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      padding: 15px 60px; 
+      background: var(--depth);
+      color: white; 
+      position: fixed; 
+      width: 100%; 
+      top: 0; 
+      z-index: 2000;
+    }
+    header .logo img { height: 50px; }
+    nav a { 
+      color: white; 
+      text-decoration: none; 
+      margin-left: 25px; 
+      font-weight: 500; 
+      font-size: 0.9rem; 
+      transition: 0.3s; 
+    }
+    nav a:hover { color: var(--gold); }
+
+    /* ================= BOOKING LAYOUT ================= */
+    .booking-wrapper {
+      max-width: 1100px;
+      margin: 60px auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 50px;
+      padding: 0 20px;
+    }
+
+    .form-container {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    h1, h2 { margin-top: 0; font-weight: 300; letter-spacing: 1px; }
+
+    .input-group { margin-bottom: 20px; }
+    .input-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+    .input-group input, .input-group select, .input-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      display: inline-block; padding: 15px 35px; background: var(--action);
+      color: white; text-decoration: none; border-radius: 2px; font-weight: 600; 
+      transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+      border: none; cursor: pointer;
+    }
+    .btn:hover { background: var(--gold); transform: translateY(-2px); }
+
+    .submit-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      width: 100%;
+      transition: 0.3s;
+    }
+    .submit-btn:hover { background: var(--primary); transform: translateY(-2px); }
+
+    .prep-info { color: #555; }
+    .prep-card { background: rgba(79, 111, 96, 0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--accent); }
+    .prep-card strong { display: block; margin-bottom: 5px; color: var(--primary); }
+
+    #successMsg { display: none; text-align: center; padding: 40px; }
+
+    /* ================= FOOTER ================= */
+    footer { background: var(--depth); color: #E8E5DC; padding: 80px 60px 40px; border-top: 5px solid var(--gold); }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 60px; max-width: 1200px; margin: 0 auto; }
+    .footer-col h3 { color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 25px; font-weight: 400; }
+    .footer-form input, .footer-form textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #4F6F60; background: #3b4d45; color: white; border-radius: 2px; }
+    
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 850px) {
+      .booking-wrapper { grid-template-columns: 1fr; }
+      header { padding: 15px 20px; }
+    }
+	@media (max-width: 768px) {
+  /* Global Header Fix */
+  header { padding: 15px 20px !important; flex-direction: column; height: auto !important; }
+  nav { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  nav a { margin: 0 !important; font-size: 0.8rem; }
+  
+  /* Hero Text Scaling */
+  h1 { font-size: 2rem !important; letter-spacing: 4px !important; }
+  
+  /* Grid Stacking */
+  .shop-grid, .stats-grid, .booking-wrapper, .product-container {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Footer Scaling */
+  .footer-grid { grid-template-columns: 1fr !important; gap: 30px; }
+}
+  </style>
 </head>
 <body>
 
 <header>
-  
-    <div class="logo">
-    <a href="index.html">
-      <img src="logo.png" alt="White Sage Logo">
-    </a>
-  </div>
-
-  
+  <div class="logo"><a href="index.html"><img src="logo.png" alt="White Sage Logo"></a></div>
   <nav>
     <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="booking.html">Book</a>
     <a href="about.html">About</a>
+    <a href="booking.html">Book</a>
+    <a href="StellaVjewelry.html">Stella V</a>
   </nav>
 </header>
-<!-- BACK ARROW --!>
-<a href="#" class="back-button" id="backButton" aria-label="Go Back">
-  <span class="back-arrow">←</span>
-  <span class="back-text">Back</span>
-</a>
-<!-- HERO -->
-<section class="booking-hero">
-  <h1>Book Your Wellness Session</h1>
-  <p>Personalised holistic care designed to restore balance, clarity and calm.</p>
-</section>
 
-<!-- INTRO -->
-<section class="section reveal">
-  <div class="booking-intro container">
-    <div class="booking-image">
-      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" alt="Wellness session" loading="lazy">
-    </div>
-    <div class="booking-text">
-      <h2>Restore Your Energy</h2>
-      <p>
-        Each session is tailored to your emotional, physical, and spiritual needs.
-        Whether you're seeking grounding, clarity, or deep relaxation —
-        your journey begins here.
-      </p>
-      <p>
-        Sessions focus on energy alignment, guided release techniques,
-        and practical tools you can take home with you.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT TO EXPECT -->
-<section class="section light-section reveal">
-  <div class="container">
-    <h2>What To Expect</h2>
-
-    <div class="expect-grid">
-
-      <div class="expect-card">
-        <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=200&q=70" alt="" loading="lazy">
-        <h3>Grounding Consultation</h3>
-        <p>We begin with a calm discussion about your current state and intentions.</p>
+<div class="booking-wrapper">
+  <div class="form-container" id="formContent">
+    <h1>Book Your Session</h1>
+    <p>Please fill out the details below to request your kinesiology session.</p>
+    
+    <form id="bookingForm">
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="name" required placeholder="Your Name">
       </div>
-
-      <div class="expect-card">
-        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=200&q=70" alt="" loading="lazy">
-        <h3>Energy Alignment</h3>
-        <p>Gentle techniques designed to rebalance emotional and energetic flow.</p>
+      <div class="input-group">
+        <label>Email Address</label>
+        <input type="email" id="email" required placeholder="email@example.com">
       </div>
-
-      <div class="expect-card">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200&q=70" alt="" loading="lazy">
-        <h3>Integration Guidance</h3>
-        <p>Simple post-session practices to maintain clarity and alignment.</p>
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" required placeholder="012 345 6789">
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- BOOKING FORM -->
-<section class="section">
-  <div class="booking-card reveal">
-
-    <h2>Request an Appointment</h2>
-
-    <form class="booking-form" id="bookingForm">
-      <input type="text" id="name" placeholder="Full Name" required>
-      <input type="email" id="email" placeholder="Email Address" required>
-      <input type="tel" id="phone" placeholder="Phone Number">
-      <input type="date" id="date" required>
-      <textarea id="message" placeholder="Tell us about your needs..." rows="4"></textarea>
-      <button type="submit" class="btn">Submit Booking</button>
+      <div style="display:flex; gap:20px;">
+        <div class="input-group" style="flex:1;">
+          <label>Preferred Date</label>
+          <input type="date" id="date" required>
+        </div>
+        <div class="input-group" style="flex:1;">
+          <label>Preferred Time</label>
+          <select id="time" required>
+            <option value="" disabled selected>Choose a slot</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="16:00">04:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Reason for Visit</label>
+        <textarea id="message" rows="4" placeholder="Briefly describe what you'd like to address..."></textarea>
+      </div>
+      <button type="submit" id="submitBtn" class="submit-btn">Send Booking Request</button>
     </form>
+  </div>
 
-    <div id="bookingSuccess" class="booking-success">
-      ✨ Your request has been sent. We'll contact you shortly.
+  <div class="form-container" id="successMsg">
+    <h2 style="color: var(--accent);">✨ Request Sent</h2>
+    <p>Thank you for reaching out. We will review your request and confirm your session via email shortly.</p>
+    <br>
+    <a href="index.html" style="color: var(--accent); font-weight: bold; text-decoration: none;">← Return Home</a>
+  </div>
+
+  <div class="prep-info">
+    <h2>Preparing for Your Session</h2>
+    <div class="prep-card">
+      <strong>Hydration is Key</strong>
+      <p>Kinesiology bio-feedback relies on the body's electrical pathways. Please drink plenty of water before your appointment.</p>
     </div>
-
+    <div class="prep-card">
+      <strong>What to Wear</strong>
+      <p>Sessions remain fully clothed. Please wear loose, comfortable clothing as light movement and muscle testing will be involved.</p>
+    </div>
+    <div class="prep-card">
+      <strong>Set Your Intention</strong>
+      <p>Spend a few moments thinking about what you hope to achieve or release during our time together.</p>
+    </div>
   </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-section">
-  <div class="container">
-    <h2>Contact White Sage</h2>
-    <p><strong>Catherin van Heerden</strong></p>
-    <p>Founder & Holistic Practitioner</p>
-    <p>📞 066 504 1278</p>
-    <p>📧 karenetouch@gmail.com</p>
-  </div>
-</section>
+</div>
 
 <footer>
-  © 2026 White Sage
+  <div class="footer-grid reveal">
+    <div class="footer-col">
+      <h3>About Us</h3>
+      <p>White Sage is a sanctuary led by Catherine Elizabeth van Heerden, bridging 15 years of neurological science and holistic healing.</p>
+      <a href="about.html" style="color: var(--gold); text-decoration: none; font-size: 0.9rem;">Read Our Story →</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact Us</h3>
+      <form class="footer-form" id="footerSupportForm">
+        <input type="text" id="supp_name" placeholder="Name" required>
+        <input type="email" id="supp_email" placeholder="Email" required>
+        <textarea id="supp_message" placeholder="Message" rows="3" required></textarea>
+        <button type="submit" id="supp_btn" class="btn" style="width: 100%;">Send Message</button>
+      </form>
+    </div>
+    <div class="footer-col">
+      <h3>Legal</h3>
+      <nav style="display:flex; flex-direction:column; gap:10px;">
+        <a href="#" style="color:#b7c0bc; text-decoration:none; font-size: 0.9rem;">Terms & Conditions</a>
+        <a href="#" style="color:#b7c0bc; text-decoration:none; font-size: 0.9rem;">Privacy Policy</a>
+      </nav>
+    </div>
+  </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQ4Jyw8phk9wFBx1j504GwYHkwP1D_tpI",
+    authDomain: "whitesage.firebaseapp.com",
+    projectId: "whitesage",
+    storageBucket: "whitesage.firebasestorage.app",
+    messagingSenderId: "1021734987429",
+    appId: "1:1021734987429:web:481545a5479d5fffb88f4c"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Booking Form Logic
+  const bookingForm = document.getElementById('bookingForm');
+  bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
+
+    db.collection("bookings").add({
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      date: document.getElementById('date').value,
+      time: document.getElementById('time').value,
+      message: document.getElementById('message').value,
+      status: 'upcoming',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+        document.getElementById('formContent').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+    });
+  });
+
+  // Footer Support Form Logic
+  document.getElementById('footerSupportForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('supp_btn');
+    btn.innerText = "Sending...";
+    db.collection("support").add({
+      name: document.getElementById('supp_name').value,
+      email: document.getElementById('supp_email').value,
+      message: document.getElementById('supp_message').value,
+      status: 'new',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      btn.innerText = "Message Sent!";
+      document.getElementById('footerSupportForm').reset();
+      setTimeout(() => { btn.innerText = "Send Message"; }, 3000);
+    });
+  });
+
+  window.addEventListener('load', () => { document.body.classList.add('loaded'); reveal(); });
+  function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      if (elementTop < windowHeight - 100) reveals[i].classList.add("active");
+    }
+  }
+  window.addEventListener("scroll", reveal);
+</script>
 </body>
 </html>
