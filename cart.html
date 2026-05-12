@@ -1,61 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Cart | White Sage</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* CART SPECIFIC STYLES */
+    .cart-wrapper { max-width: 1000px; margin: 120px auto; padding: 20px; display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+    
+    .cart-items-section { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .cart-item { display: flex; align-items: center; gap: 20px; padding: 15px 0; border-bottom: 1px solid #eee; }
+    .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; }
+    .cart-item-details { flex: 1; }
+    .remove-btn { color: #e74c3c; cursor: pointer; font-size: 0.8rem; border: none; background: none; }
+
+    .checkout-section { background: #2f3e38; color: white; padding: 30px; border-radius: 20px; position: sticky; top: 120px; }
+    .checkout-section h3 { margin-bottom: 20px; color: var(--highlight); }
+    
+    .checkout-form input, .checkout-form select, .checkout-form textarea {
+      width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: none; font-family: inherit;
+    }
+
+    .payment-methods { display: flex; gap: 10px; margin-bottom: 20px; }
+    .pay-opt { flex: 1; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; text-align: center; font-size: 0.8rem; cursor: pointer; border: 1px solid transparent; }
+    .pay-opt.active { border-color: var(--highlight); background: rgba(255,255,255,0.2); }
+
+    .total-row { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; }
+
+    @media (max-width: 850px) { .cart-wrapper { grid-template-columns: 1fr; } }
+	@media (max-width: 850px) {
+  .cart-wrapper {
+    grid-template-columns: 1fr; /* Stacks cart items and checkout form */
+    margin-top: 100px;
+  }
+  header { padding: 10px 20px; flex-direction: column; }
+  .checkout-section { position: relative; top: 0; }
+}
+  </style>
 </head>
-<body>
+<body class="loaded">
 
 <header>
-    <div class="logo">
-    <a href="index.html">
-      <img src="logo.png" alt="White Sage Logo">
-    </a>
-  </div>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="booking.html">Book</a>
-    <a href="about.html">About</a>
-    <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-  </nav>
+  <div class="logo"><a href="index.html"><img src="logo.png"></a></div>
+  <nav><a href="products.html">Continue Shopping</a></nav>
 </header>
 
-<a href="#" class="back-button" id="backButton" aria-label="Go Back">
-  <span class="back-arrow">←</span>
-  <span class="back-text">Back</span>
-</a>
+<div class="cart-wrapper">
+  <div class="cart-items-section reveal active">
+    <h2>Your Basket</h2>
+    <div id="cartDisplay">
+      </div>
+  </div>
 
-<section class="cart-hero">
-  <h1>Your Cart</h1>
-  <p>Review your selected wellness products below.</p>
-</section>
-
-<section class="cart-section">
-  <div class="cart-container">
-
-    <div class="cart-items" id="cart-items">
-      <!-- Items dynamically inserted here -->
-    </div>
-
-    <div class="cart-summary">
-      <h3>Order Summary</h3>
-      <div class="summary-line">
-        <span>Subtotal</span>
-        <span id="cart-total">R0</span>
+  <div class="checkout-section reveal active">
+    <h3>Shipping & Payment</h3>
+    <form class="checkout-form" id="checkoutForm">
+      <input type="text" id="custName" placeholder="Full Name" required>
+      <input type="email" id="custEmail" placeholder="Email Address" required>
+      <textarea id="custAddress" placeholder="Full Shipping Address (Street, Suburb, City, Code)" rows="3" required></textarea>
+      
+      <p style="margin-bottom: 10px; font-size: 0.9rem;">Payment Method:</p>
+      <div class="payment-methods">
+        <div class="pay-opt active" onclick="selectPay('Card')">Card</div>
+        <div class="pay-opt" onclick="selectPay('EFT')">EFT / Instant</div>
+        <div class="pay-opt" onclick="selectPay('Cash')">COD</div>
       </div>
 
-      <button class="btn checkout-btn">Proceed to Checkout</button>
-    </div>
+      <div class="total-row">
+        <span>Total:</span>
+        <span id="cartTotalDisplay">R0.00</span>
+      </div>
 
+      <button type="submit" class="btn" style="width:100%; background: var(--highlight); color: var(--depth);">Complete Order</button>
+    </form>
   </div>
-</section>
+</div>
 
-<footer>
-  © 2026 White Sage
-</footer>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-<script src="script.js"></script>
+<script>
+  // FIREBASE CONFIG
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQ4Jyw8phk9wFBx1j504GwYHkwP1D_tpI",
+    authDomain: "whitesage.firebaseapp.com",
+    projectId: "whitesage",
+    storageBucket: "whitesage.firebasestorage.app",
+    messagingSenderId: "1021734987429",
+    appId: "1:1021734987429:web:481545a5479d5fffb88f4c"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  let selectedPayment = "Card";
+
+  function selectPay(method) {
+    selectedPayment = method;
+    document.querySelectorAll('.pay-opt').forEach(opt => {
+      opt.classList.remove('active');
+      if(opt.innerText === method || (method === 'Card' && opt.innerText === 'Card')) opt.classList.add('active');
+    });
+  }
+
+  function renderCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const display = document.getElementById('cartDisplay');
+    const totalDisp = document.getElementById('cartTotalDisplay');
+    
+    if(cart.length === 0) {
+      display.innerHTML = "<p>Your cart is empty.</p>";
+      return;
+    }
+
+    let total = 0;
+    display.innerHTML = cart.map((item, index) => {
+      total += (item.price * item.quantity);
+      return `
+        <div class="cart-item">
+          <img src="${item.image}">
+          <div class="cart-item-details">
+            <h4>${item.name}</h4>
+            <p>R${item.price} x ${item.quantity}</p>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    totalDisp.innerText = `R${total.toFixed(2)}`;
+  }
+
+  function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  // SUBMIT TO DASHBOARD
+  document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if(cart.length === 0) return alert("Cart is empty");
+
+    const orderData = {
+      customerName: document.getElementById('custName').value,
+      customerEmail: document.getElementById('custEmail').value,
+      shippingAddress: document.getElementById('custAddress').value,
+      paymentMethod: selectedPayment,
+      items: cart,
+      total: document.getElementById('cartTotalDisplay').innerText.replace('R', ''),
+      status: 'needs-ship',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    try {
+      await db.collection("orders").add(orderData);
+      localStorage.removeItem("cart");
+      alert("Order Placed Successfully!");
+      window.location.href = "index.html";
+    } catch (err) {
+      console.error(err);
+      alert("Error sending order.");
+    }
+  });
+
+  renderCart();
+</script>
 </body>
 </html>
