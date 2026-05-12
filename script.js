@@ -264,3 +264,36 @@ document.querySelectorAll(".add-to-cart-shop").forEach(button => {
     }, 1200);
   });
 });
+
+// ================= FOOTER CONTACT RELAY =================
+// Integrated logic to bridge the footer form to the Dashboard 'support' collection
+const footerForm = document.getElementById('footerContactForm');
+if (footerForm) {
+  footerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('contactSubmitBtn');
+    const originalText = btn.innerText;
+    btn.innerText = "Sending...";
+    btn.disabled = true;
+
+    const data = {
+      name: document.getElementById('contactName').value,
+      email: document.getElementById('contactEmail').value,
+      message: document.getElementById('contactMessage').value,
+      status: 'new',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    try {
+      await db.collection("support").add(data);
+      alert("Message sent! Catherine will receive this on the dashboard.");
+      footerForm.reset();
+    } catch (error) {
+      console.error("Error sending to dashboard:", error);
+      alert("Submission failed. Please check your connection.");
+    } finally {
+      btn.innerText = originalText;
+      btn.disabled = false;
+    }
+  });
+}
